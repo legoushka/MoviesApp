@@ -1,4 +1,4 @@
-package com.example.moviesapp.Screens
+package com.example.moviesapp.presentation.screens
 
 import androidx.compose.animation.core.EaseInOutExpo
 import androidx.compose.animation.core.animateFloatAsState
@@ -17,12 +17,13 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.moviesapp.navigation.Screens
+import com.example.moviesapp.presentation.MainViewModel
+import com.example.moviesapp.presentation.navigation.Screens
 import kotlinx.coroutines.delay
 
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController, viewModel: MainViewModel) {
     var startAnimation by remember {
         mutableStateOf(false)
     }
@@ -43,6 +44,7 @@ fun SplashScreen(navController: NavController) {
     )
     LaunchedEffect(key1 = true ){
         startAnimation = true
+        viewModel.getAllMovies()
         delay(3500)
         navController.navigate(Screens.Main.route)
     }

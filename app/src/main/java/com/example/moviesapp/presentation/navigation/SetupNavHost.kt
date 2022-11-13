@@ -1,4 +1,4 @@
-package com.example.moviesapp.navigation
+package com.example.moviesapp.presentation.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.material.MaterialTheme
@@ -7,9 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.moviesapp.Screens.MainScreen
-import com.example.moviesapp.Screens.SplashScreen
+import com.example.moviesapp.presentation.MainViewModel
+import com.example.moviesapp.presentation.screens.MainScreen
+import com.example.moviesapp.presentation.screens.SplashScreen
 import com.example.moviesapp.utils.Constants
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 sealed class Screens(val route: String){
     object Splash: Screens(route = Constants.Screens.SPLASH_SCREEN)
@@ -18,17 +20,17 @@ sealed class Screens(val route: String){
 }
 
 @Composable
-fun SetupNavHost(navController: NavHostController){
+fun SetupNavHost(navController: NavHostController, viewModel: MainViewModel){
     NavHost(
         navController = navController,
         startDestination = Screens.Splash.route,
         modifier = Modifier.background(MaterialTheme.colors.background)
     ){
         composable(route = Screens.Splash.route) {
-            SplashScreen(navController = navController)
+            SplashScreen(navController = navController, viewModel = viewModel)
         }
         composable(route = Screens.Main.route) {
-            MainScreen()
+            MainScreen(navController = navController, viewModel = viewModel)
         }
         composable(route = Screens.Details.route) {
 

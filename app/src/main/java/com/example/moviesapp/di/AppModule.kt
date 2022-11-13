@@ -1,6 +1,8 @@
 package com.example.moviesapp.di
 
+import com.example.moviesapp.data.network.ApiRepository
 import com.example.moviesapp.data.network.ApiService
+import com.example.moviesapp.domain.repository.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,14 +15,22 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    const val BASE_URL = "https://api.tvmaze.com/"
+    @Provides
+    fun baseUrl() = "https://api.tvmaze.com/"
 
     @Provides
     @Singleton
-    fun provideRetrofit() : ApiService =
+    fun provideRetrofit(baseUrl: String) : ApiService =
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesMoviesRepository(apiService: ApiService) : MoviesRepository {
+        return ApiRepository(apiService)
+    }
+
 }
