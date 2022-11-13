@@ -53,15 +53,15 @@ fun SplashScreen(navController: NavController) {
 fun Splash(alpha: Float, rotation: Float){
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .rotate(degrees = rotation),
         contentAlignment = Alignment.Center,
 
     ){
         Icon(
             modifier = Modifier
                 .size(120.dp)
-                .alpha(alpha = alpha)
-                .rotate(degrees = rotation),
+                .alpha(alpha = alpha),
             imageVector = Icons.Default.ThumbUp,
             contentDescription = "Splash screen logo",
             tint = MaterialTheme.colors.primaryVariant
