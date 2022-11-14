@@ -2,6 +2,11 @@
 <resources>
 
     <style name="Theme.MoviesApp" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+
+        <!-- Optional: set to transparent if your app is drawing behind the status bar. -->
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
     </style>
+
 </resources>

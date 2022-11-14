@@ -1,5 +1,6 @@
 package com.example.moviesapp.ui.theme
 
+import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
@@ -7,7 +8,9 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
 private val DarkColorPalette = darkColors(
     primary = LightGreen200,
@@ -45,9 +48,18 @@ fun MoviesAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
         LightColorPalette
     }
 
-    val systemUiController = rememberSystemUiController()
+    val view = LocalView.current
     SideEffect {
-        systemUiController.setStatusBarColor(colors.primaryVariant)
+
+        val window = (view.context as Activity).window
+        //WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = colors.surface.toArgb()
+        window.navigationBarColor = colors.surface.toArgb()
+
+        WindowCompat.getInsetsController(window, view)
+            .isAppearanceLightStatusBars = !darkTheme
+        WindowCompat.getInsetsController(window, view)
+            .isAppearanceLightNavigationBars = !darkTheme
     }
 
     MaterialTheme(
