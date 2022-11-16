@@ -59,17 +59,20 @@ fun MovieItem(item: Movies, navController: NavController) {
             )
             Column {
                 Text(text = item.name, style = MaterialTheme.typography.h5)
-                Row{
+                Row {
                     Text(text = "Rating: ", style = MaterialTheme.typography.body1)
-                    Text(text = item.rating.average.toString(), style = MaterialTheme.typography.body1)
+                    Text(
+                        text = item.rating.average.toString(),
+                        style = MaterialTheme.typography.body1
+                    )
                 }
-                Row{
+                Row {
                     Text(text = "Genre: ", style = MaterialTheme.typography.body1)
                     item.genres.take(2).forEach {
                         Text(text = " $it ", style = MaterialTheme.typography.body1)
                     }
                 }
-                Row{
+                Row {
                     Text(text = "Premiered: ", style = MaterialTheme.typography.body1)
                     Text(text = item.premiered, style = MaterialTheme.typography.body1)
                 }
